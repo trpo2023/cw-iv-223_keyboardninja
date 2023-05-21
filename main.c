@@ -78,6 +78,7 @@ int main(int argc, char *argv[]) {
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gdk_rgba_parse(&color, "rgb(181, 184, 177)"); // серый
     gtk_widget_override_background_color(window, GTK_STATE_NORMAL, &color);
+    gtk_window_set_title(GTK_WINDOW(window), "Keyboard Ninja");
     gtk_window_set_default_size(GTK_WINDOW(window), 400, 400);
     gtk_window_present(GTK_WINDOW(window));
     
