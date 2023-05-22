@@ -5,13 +5,14 @@ static GtkWidget *start_button = NULL;
 static GtkWidget *label_word = NULL;
 static GtkWidget *button_language = NULL;
 static GtkWidget *accuracy_label = NULL;
+static GtkWidget *button_reset=NULL;
+
 gchar *language = "en"; // По умолчанию будет использоваться английский язык
 gint correct_words = 0;
 gchar *current_word;
 // Массивы слов на русском и английском языках
 gchar *russian_words[] = {"кот", "собака", "дерево", "солнце", "компьютер", "автомобиль", "яблоко", "страна", "город", "дом"};
 gchar *english_words[] = {"cat", "dog", "tree", "sun", "computer", "car", "apple", "country", "city", "house"};
-
 
 static gboolean on_window_closed(GtkWidget *widget, GdkEvent *event, gpointer user_data) {
     gtk_main_quit();
@@ -47,7 +48,6 @@ void on_language_clicked() {
         gtk_button_set_label(GTK_BUTTON(button_language), "EN");
     }
 }
-
 static void on_start_clicked() {
     correct_words = 0;
     set_word();
@@ -55,6 +55,13 @@ static void on_start_clicked() {
     gtk_widget_set_sensitive(word_entry, TRUE);
     //gtk_widget_hide(accuracy_label);
 }
+
+static void on_reset_clicked() {
+    correct_words = 0;
+    gtk_widget_set_sensitive(word_entry, TRUE);
+    gtk_widget_hide(accuracy_label);
+}
+
 // Функция обработки события "activate" поля ввода слова
 void on_input_activate(GtkEntry *entry, gpointer user_data) {
     gchar *text = gtk_entry_get_text(GTK_ENTRY(word_entry));
@@ -78,7 +85,7 @@ int main(int argc, char *argv[]) {
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gdk_rgba_parse(&color, "rgb(181, 184, 177)"); // серый
     gtk_widget_override_background_color(window, GTK_STATE_NORMAL, &color);
-    gtk_window_set_title(GTK_WINDOW(window), "Keyboard Ninja");
+    gtk_window_set_title(GTK_WINDOW(window), "Keyboard Trainer");
     gtk_window_set_default_size(GTK_WINDOW(window), 400, 400);
     gtk_window_present(GTK_WINDOW(window));
     
@@ -97,16 +104,18 @@ int main(int argc, char *argv[]) {
 
     button_language = gtk_button_new_with_label("EN");
     g_signal_connect(button_language, "clicked", G_CALLBACK(on_language_clicked), NULL);
-    
-    
 
-    GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+    button_reset = gtk_button_new_with_label("Reset");
+    g_signal_connect(button_reset, "clicked", G_CALLBACK(on_reset_clicked), NULL);
+
+    GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
     gtk_container_add(GTK_CONTAINER(window), vbox);
     
     gtk_box_pack_start(GTK_BOX(vbox), label_word, TRUE, TRUE, 0);
     gtk_box_pack_start(GTK_BOX(vbox), word_entry, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(vbox), accuracy_label, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(vbox), start_button, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(vbox), button_reset, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(vbox), button_language, FALSE, FALSE, 0);
     gtk_widget_show_all(window);
     g_signal_connect(window, "destroy", G_CALLBACK(on_window_closed), NULL);
