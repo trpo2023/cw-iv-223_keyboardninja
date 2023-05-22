@@ -56,6 +56,7 @@ static void on_start_clicked() {
     gtk_widget_set_sensitive(word_entry, TRUE);
     gtk_widget_set_sensitive(button_reset, TRUE);
     gtk_widget_set_sensitive(button_language, TRUE);
+     gtk_label_set_text(GTK_LABEL(accuracy_label), "Correct words: 0");
 }
 
 static void on_reset_clicked() {
