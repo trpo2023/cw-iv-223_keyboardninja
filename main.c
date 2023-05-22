@@ -54,7 +54,8 @@ static void on_start_clicked() {
     set_word();
     gtk_widget_set_sensitive(start_button, FALSE);
     gtk_widget_set_sensitive(word_entry, TRUE);
-    //gtk_widget_hide(accuracy_label);
+    gtk_widget_set_sensitive(button_reset, TRUE);
+    gtk_widget_set_sensitive(button_language, TRUE);
 }
 
 static void on_reset_clicked() {
@@ -105,9 +106,11 @@ int main(int argc, char *argv[]) {
 
     button_language = gtk_button_new_with_label("EN");
     g_signal_connect(button_language, "clicked", G_CALLBACK(on_language_clicked), NULL);
+    gtk_widget_set_sensitive(button_language, FALSE);
 
     button_reset = gtk_button_new_with_label("Reset");
     g_signal_connect(button_reset, "clicked", G_CALLBACK(on_reset_clicked), NULL);
+    gtk_widget_set_sensitive(button_reset, FALSE);
 
     GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
     gtk_container_add(GTK_CONTAINER(window), vbox);
