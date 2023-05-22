@@ -47,6 +47,7 @@ void on_language_clicked() {
         language = "en";
         gtk_button_set_label(GTK_BUTTON(button_language), "EN");
     }
+    set_word();
 }
 static void on_start_clicked() {
     correct_words = 0;
