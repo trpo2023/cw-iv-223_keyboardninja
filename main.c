@@ -12,7 +12,7 @@ gint correct_words = 0;
 gchar *current_word;
 // Массивы слов на русском и английском языках
 gchar *russian_words[] = {"кот", "собака", "дерево", "солнце", "компьютер", "автомобиль", "яблоко", "страна", "город", "дом"};
-gchar *english_words[] = {"cat", "dog", "tree", "sun", "computer", "car", "apple", "country", "city", "house"};
+gchar *english_words[] = {"to verify", "to plug in", "to debug", "access", "include", "car", "apple", "country", "city", "house"};
 
 static gboolean on_window_closed(GtkWidget *widget, GdkEvent *event, gpointer user_data) {
     gtk_main_quit();
@@ -61,8 +61,9 @@ static void on_start_clicked() {
 
 static void on_reset_clicked() {
     correct_words = 0;
+    set_word();
     gtk_widget_set_sensitive(word_entry, TRUE);
-    gtk_widget_hide(accuracy_label);
+    gtk_label_set_text(GTK_LABEL(accuracy_label), "Correct words: 0");
 }
 
 // Функция обработки события "activate" поля ввода слова
