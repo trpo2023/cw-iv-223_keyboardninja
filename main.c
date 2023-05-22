@@ -11,8 +11,10 @@ gchar *language = "en"; // По умолчанию будет использов
 gint correct_words = 0;
 gchar *current_word;
 // Массивы слов на русском и английском языках
-gchar *russian_words[] = {"кот", "собака", "дерево", "солнце", "компьютер", "автомобиль", "яблоко", "страна", "город", "дом"};
-gchar *english_words[] = {"to verify", "to plug in", "to debug", "access", "include", "car", "apple", "country", "city", "house"};
+gchar *russian_words[] = {"переменная", "алгоритм", "разработчик", "отказоустойчивость", "компьютер", "реализация", 
+"функция", "библиотека", "веб-страница", "таблица","оператор","обработка"};
+gchar *english_words[] = {"to verify", "to plug in", "to debug", "access", "include", "implementation",
+ "keyboard", "language", "lightweight", "network", "process ", "programming","mouse","static variable"};
 
 static gboolean on_window_closed(GtkWidget *widget, GdkEvent *event, gpointer user_data) {
     gtk_main_quit();
