@@ -10,9 +10,12 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      MY_VAR: ${{ env.MY_VAR }}
 
     steps:
-    - uses: actions/checkout@v2.4.2
+    - name: Checkout code
+      uses: actions/checkout@v2.4.2
       with:
         ref: v2.4.2
 
@@ -21,7 +24,7 @@ jobs:
 
     - name: Start Xvfb
       run: |
-        /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+        Xvfb :99 -screen 0 1024x768x24 &
         export DISPLAY=:99
       
     - name: Build and test application
