@@ -7,6 +7,7 @@ static GtkWidget *button_language = NULL;
 static GtkWidget *accuracy_label = NULL;
 static GtkWidget *button_reset=NULL;
 
+
 gchar *language = "en"; // По умолчанию будет использоваться английский язык
 gint correct_words = 0;
 gchar *current_word;
@@ -41,6 +42,7 @@ static void set_word() {
     current_word = words[index];
     gtk_label_set_text(GTK_LABEL(label_word), current_word);
 }
+
 void on_language_clicked() {
     if (strcmp(language, "en") == 0) {
         language = "ru";
@@ -51,6 +53,7 @@ void on_language_clicked() {
     }
     set_word();
 }
+
 static void on_start_clicked() {
     correct_words = 0;
     set_word();
@@ -67,7 +70,6 @@ static void on_reset_clicked() {
     gtk_widget_set_sensitive(word_entry, TRUE);
     gtk_label_set_text(GTK_LABEL(accuracy_label), "Correct words: 0");
 }
-
 // Функция обработки события "activate" поля ввода слова
 void on_input_activate(GtkEntry *entry, gpointer user_data) {
     gchar *text = gtk_entry_get_text(GTK_ENTRY(word_entry));
@@ -83,16 +85,27 @@ void on_input_activate(GtkEntry *entry, gpointer user_data) {
     set_word(); // Генерируем новое слово
     gtk_entry_set_text(GTK_ENTRY(word_entry), ""); // Очищаем поле ввода
 }
+
 int main(int argc, char *argv[]) {
-    GdkRGBA color;
 
     gtk_init(&argc, &argv);
 
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gdk_rgba_parse(&color, "rgb(189, 216, 255)"); // голубой
-    gtk_widget_override_background_color(window, GTK_STATE_NORMAL, &color);
+
+    //gdk_rgba_parse(&color, "rgb(189, 216, 255)"); // голубой
+    //gtk_widget_override_background_color(window, GTK_STATE_NORMAL, &color);
     gtk_window_set_title(GTK_WINDOW(window), "Keyboard Ninja");
     gtk_window_set_default_size(GTK_WINDOW(window), 400, 400);
+
+    GtkCssProvider *css_provider = gtk_css_provider_new();
+
+    // Загружаем стиль для объекта GtkCssProvider
+    gtk_css_provider_load_from_data(css_provider, "window {background-color: #8fd8f2}", -1, NULL);
+
+    // Создаем GtkStyleContext и применяем к нему объект GtkCssProvider
+    GtkStyleContext *context = gtk_widget_get_style_context(window);
+    gtk_style_context_add_provider(context, GTK_STYLE_PROVIDER(css_provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+   
     gtk_window_present(GTK_WINDOW(window));
     
     label_word = gtk_label_new("-");
