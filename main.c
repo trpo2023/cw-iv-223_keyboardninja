@@ -15,7 +15,7 @@ gchar *current_word;
 gchar *russian_words[] = {"переменная", "алгоритм", "разработчик", "отказоустойчивость", "компьютер", "реализация", 
 "функция", "библиотека", "веб-страница", "таблица","оператор","обработка"};
 gchar *english_words[] = {"to verify", "to plug in", "to debug", "access", "include", "implementation",
- "keyboard", "language", "lightweight", "network", "process ", "programming","mouse","static variable"};
+ "keyboard", "language", "lightweight", "network", "process", "programming","mouse","static variable"};
 
 static gboolean on_window_closed(GtkWidget *widget, GdkEvent *event, gpointer user_data) {
     gtk_main_quit();
@@ -72,7 +72,7 @@ static void on_reset_clicked() {
 }
 // Функция обработки события "activate" поля ввода слова
 void on_input_activate(GtkEntry *entry, gpointer user_data) {
-    gchar *text = gtk_entry_get_text(GTK_ENTRY(word_entry));
+    const gchar *text = gtk_entry_get_text(GTK_ENTRY(word_entry));
     
     if (strcmp(text, current_word) == 0) { // Если введенное слово совпадает с текущим словом
         correct_words++;
