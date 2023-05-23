@@ -21,4 +21,4 @@ jobs:
         
     - name: Run the program with xvfb
       run: |
-        xvfb-run -a ./main
+        xvfb-run --no-sandbox -a ./main
