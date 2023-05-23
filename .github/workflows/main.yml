@@ -17,8 +17,9 @@ jobs:
       
     - name: Start Xvfb
       run: |
-        Xvfb :99 -screen 0 1024x768x16 &
-        export DISPLAY=:99
+        Xvfb :0 -screen 0 1024x768x16 -ac &
+        sleep 5
+        export DISPLAY=:0
         
     - name: Build the program
       run: |
