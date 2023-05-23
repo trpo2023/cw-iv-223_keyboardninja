@@ -18,6 +18,8 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y libgtk-3-dev xvfb
+        sudo apt-get install at-spi2-core
+        sudo apt-get install xdotool
 
     - name: Build
       run: gcc main.c -o main `pkg-config --libs --cflags gtk+-3.0`
