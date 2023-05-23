@@ -27,4 +27,4 @@ jobs:
         
     - name: Run the program in Xvfb
       run: |
-        ./main
+        xvfb-run -a ./main
