@@ -9,6 +9,8 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    env:
+      DISPLAY: ":99"
 
     steps:
     - name: Checkout code
@@ -17,17 +19,16 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y libgtk-3-dev xvfb
-        sudo apt-get install at-spi2-core
-        sudo apt-get install xdotool
-        sudo apt-get install libx11-dev libxtst-dev libxi-dev
+        sudo apt-get install -y libgtk-3-dev xdotool
+        sudo apt-get install -y xvfb
 
     - name: Build
       run: gcc main.c -o main `pkg-config --libs --cflags gtk+-3.0`
 
     - name: Test
       run: |
-        xvfb-run -a ./main &
+        Xvfb :99 -screen 0 1024x768x24 &
+        export DISPLAY=:99
         sleep 5
         xdotool type "test"
         xdotool key Return
