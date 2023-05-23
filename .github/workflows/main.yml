@@ -41,3 +41,4 @@ jobs:
         sleep 5
         xdotool key Control+c
         wait
+        pkill -f main
