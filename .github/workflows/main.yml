@@ -10,21 +10,16 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    env:
-      MY_VAR: ${{ env.MY_VAR }}
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2.4.2
-      with:
-        ref: v2.4.2
+    - uses: actions/checkout@v2
 
     - name: Install dependencies
       run: sudo apt-get -y install libgtk-3-dev xvfb
 
     - name: Start Xvfb
       run: |
-        Xvfb :99 -screen 0 1024x768x24 &
+        /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
         export DISPLAY=:99
       
     - name: Build and test application
