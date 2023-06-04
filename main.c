@@ -3,86 +3,79 @@
 #include <time.h>
 #include <string.h>
 
-#define WORDS_NUM 7 // Количество слов
-#define MAX_LENGTH 40 // Максимальная длина слова
+#define WORDS_NUM 12 
+#define MAX_LENGTH 40 
 
-const char WORDS_EN[WORDS_NUM][MAX_LENGTH] = { // Список английских слов
-    "hello", 
-    "world", 
-    "function",
-    "programming",
-    "language",
-    "computer",
-    "keyboard"
+const char WORDS_EN[WORDS_NUM][MAX_LENGTH] = {"to verify", "to plug in", "to debug", "access", "include",
+ "keyboard", "language", "network", "process", "programming","mouse","static variable"
 };
 
-const char WORDS_RU[WORDS_NUM][MAX_LENGTH] = { // Список русских слов
-    "привет",
-    "мир",
-    "функция",
-    "программирование",
-    "язык",
-    "компьютер",
-    "клавиатура"
+const char WORDS_RU[WORDS_NUM][MAX_LENGTH] = {
+"переменная", "алгоритм", "разработчик", "отказоустойчивость", "компьютер", "реализация", 
+"функция", "библиотека", "веб-страница", "таблица","оператор","обработка"
 };
 
 int main() {
-    srand(time(NULL)); // Инициализация генератора случайных чисел
+    srand(time(NULL));
     char input[MAX_LENGTH];
-    int num_rounds = 0; // Количество раундов
-    int num_correct = 0; // Количество правильных ответов
-    int language_choice = 0; // Выбор языка
+    int num_words = 0; 
+    int num_correct = 0; 
+    int language_choice = 0;
+    printf("Добро пожаловать в Keyboard Ninja!\n\n");
 
-    printf("Welcome to the typing trainer!\n\n");
-
-    printf("Choose language / Выберите язык:\n");
-    printf("1 - English / Английский\n");
-    printf("2 - Russian / Русский\n");
+    printf("Выберите язык:\n");
+    printf("1 - Английский\n");
+    printf("2 - Русский\n");
     scanf("%d", &language_choice);
 
-    const char (*WORDS)[MAX_LENGTH]; // Указатель на массив слов
-    int words_num; // Количество слов
+    const char (*WORDS)[MAX_LENGTH]; 
+    int words_num;
 
-    if (language_choice == 1) { // Если выбран английский язык
+    if (language_choice == 1) { 
         WORDS = WORDS_EN;
         words_num = WORDS_NUM;
     }
-    else if (language_choice == 2) { // Если выбран русский язык
+    else if (language_choice == 2) { 
         WORDS = WORDS_RU;
         words_num = WORDS_NUM;
     }
-    else { // Если выбран неверный вариант
-        printf("Invalid choice. Terminating program...");
+    else { 
+        printf("Такого варианта языка нет...");
         return 0;
     }
 
-    while (1) { // Бесконечный цикл
-        int rand_index = rand() % words_num; // Выбор случайного индекса в диапазоне [0, words_num-1]
+    while (1) { 
+        int rand_index = rand() % words_num;
         char word[MAX_LENGTH];
-        strcpy(word, WORDS[rand_index]); // Копируем слово в переменную word
-
-        printf("Type the following word and press ENTER or type 'q' to quit:\n");
+        strcpy(word, WORDS[rand_index]); 
+        printf("Нажмите ENTER для ввода или 'q' для выхода:\n");
         printf("%s\n", word);
-
         scanf("%s", input);
 
-        if (strcmp(input, "q") == 0) // Если пользователь ввел 'q' - завершить игру
+        if (strcmp(input, "q") == 0)
             break;
 
-        num_rounds++; // Увеличиваем счетчик раундов
+        num_words++;
 
         if (strcmp(word, input) == 0) {
-            printf("Congratulations! You typed correctly\n");
-            num_correct++; // Увеличиваем счетчик правильных ответов
+            printf("Замечательно! Вы ввели слово верно!\n");
+            num_correct++; 
         }
         else
-            printf("Sorry, you made a mistake. The correct word is: %s\n", word);
+            printf("Вы допустили ошибку! Правильное слово: %s\n", word);
         
         printf("\n");
     }
-
-    printf("Thanks for playing!\n");
-    printf("You played %d rounds and got %d answers correct.\n", num_rounds, num_correct);
+    
+    printf("Спасибо за игру!\n");
+    printf("Всего слов: %d \nПравильных слов: %d\n", num_words, num_correct);
+    if (num_words > 0) { 
+        double accuracy = (double)num_correct / num_words * 100; 
+        printf("Точность: %.2f%%\n", accuracy);
+    }
 
     return 0;
+
 }
+
+
