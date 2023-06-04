@@ -1,147 +1,88 @@
-#include <gtk/gtk.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
 
-static GtkWidget *word_entry = NULL;
-static GtkWidget *start_button = NULL;
-static GtkWidget *label_word = NULL;
-static GtkWidget *button_language = NULL;
-static GtkWidget *accuracy_label = NULL;
-static GtkWidget *button_reset=NULL;
+#define WORDS_NUM 7 // Количество слов
+#define MAX_LENGTH 40 // Максимальная длина слова
 
+const char WORDS_EN[WORDS_NUM][MAX_LENGTH] = { // Список английских слов
+    "hello", 
+    "world", 
+    "function",
+    "programming",
+    "language",
+    "computer",
+    "keyboard"
+};
 
-gchar *language = "en"; // По умолчанию будет использоваться английский язык
-gint correct_words = 0;
-gchar *current_word;
-// Массивы слов на русском и английском языках
-gchar *russian_words[] = {"переменная", "алгоритм", "разработчик", "отказоустойчивость", "компьютер", "реализация", 
-"функция", "библиотека", "веб-страница", "таблица","оператор","обработка"};
-gchar *english_words[] = {"to verify", "to plug in", "to debug", "access", "include", "implementation",
- "keyboard", "language", "lightweight", "network", "process", "programming","mouse","static variable"};
+const char WORDS_RU[WORDS_NUM][MAX_LENGTH] = { // Список русских слов
+    "привет",
+    "мир",
+    "функция",
+    "программирование",
+    "язык",
+    "компьютер",
+    "клавиатура"
+};
 
-static gboolean on_window_closed(GtkWidget *widget, GdkEvent *event, gpointer user_data) {
-    gtk_main_quit();
-    return TRUE;
-}
+int main() {
+    srand(time(NULL)); // Инициализация генератора случайных чисел
+    char input[MAX_LENGTH];
+    int num_rounds = 0; // Количество раундов
+    int num_correct = 0; // Количество правильных ответов
+    int language_choice = 0; // Выбор языка
 
-// Функция для вывода случайного слова на экран
-static void set_word() {
-    gint index;
-    gint num_words;
-    gchar **words;
-    
-    if (strcmp(language, "ru") == 0) { // Если выбран русский язык, используем массив слов на русском языке
-        words = russian_words;
-        num_words = G_N_ELEMENTS(russian_words);
-    } else { // Если выбран английский язык, используем массив слов на английском языке
-        words = english_words;
-        num_words = G_N_ELEMENTS(english_words);
+    printf("Welcome to the typing trainer!\n\n");
+
+    printf("Choose language / Выберите язык:\n");
+    printf("1 - English / Английский\n");
+    printf("2 - Russian / Русский\n");
+    scanf("%d", &language_choice);
+
+    const char (*WORDS)[MAX_LENGTH]; // Указатель на массив слов
+    int words_num; // Количество слов
+
+    if (language_choice == 1) { // Если выбран английский язык
+        WORDS = WORDS_EN;
+        words_num = WORDS_NUM;
     }
-    
-    // Генерируем случайный индекс слова
-    index = g_random_int_range(0, num_words);
-    
-    current_word = words[index];
-    gtk_label_set_text(GTK_LABEL(label_word), current_word);
-}
-
-void on_language_clicked() {
-    if (strcmp(language, "en") == 0) {
-        language = "ru";
-        gtk_button_set_label(GTK_BUTTON(button_language), "RU");
-    } else {
-        language = "en";
-        gtk_button_set_label(GTK_BUTTON(button_language), "EN");
+    else if (language_choice == 2) { // Если выбран русский язык
+        WORDS = WORDS_RU;
+        words_num = WORDS_NUM;
     }
-    set_word();
-}
-
-static void on_start_clicked() {
-    correct_words = 0;
-    set_word();
-    gtk_widget_set_sensitive(start_button, FALSE);
-    gtk_widget_set_sensitive(word_entry, TRUE);
-    gtk_widget_set_sensitive(button_reset, TRUE);
-    gtk_widget_set_sensitive(button_language, TRUE);
-     gtk_label_set_text(GTK_LABEL(accuracy_label), "Correct words: 0");
-}
-
-static void on_reset_clicked() {
-    correct_words = 0;
-    set_word();
-    gtk_widget_set_sensitive(word_entry, TRUE);
-    gtk_label_set_text(GTK_LABEL(accuracy_label), "Correct words: 0");
-}
-// Функция обработки события "activate" поля ввода слова
-void on_input_activate(GtkEntry *entry, gpointer user_data) {
-    const gchar *text = gtk_entry_get_text(GTK_ENTRY(word_entry));
-    
-    if (strcmp(text, current_word) == 0) { // Если введенное слово совпадает с текущим словом
-        correct_words++;
+    else { // Если выбран неверный вариант
+        printf("Invalid choice. Terminating program...");
+        return 0;
     }
-    char buffer[100];
-    sprintf(buffer, "Correct words: %d", correct_words);
-    gtk_label_set_text(GTK_LABEL(accuracy_label), buffer);
-    gtk_widget_show(accuracy_label);
 
-    set_word(); // Генерируем новое слово
-    gtk_entry_set_text(GTK_ENTRY(word_entry), ""); // Очищаем поле ввода
-}
+    while (1) { // Бесконечный цикл
+        int rand_index = rand() % words_num; // Выбор случайного индекса в диапазоне [0, words_num-1]
+        char word[MAX_LENGTH];
+        strcpy(word, WORDS[rand_index]); // Копируем слово в переменную word
 
-int main(int argc, char *argv[]) {
+        printf("Type the following word and press ENTER or type 'q' to quit:\n");
+        printf("%s\n", word);
 
-    gtk_init(&argc, &argv);
+        scanf("%s", input);
 
-    GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+        if (strcmp(input, "q") == 0) // Если пользователь ввел 'q' - завершить игру
+            break;
 
-    //gdk_rgba_parse(&color, "rgb(189, 216, 255)"); // голубой
-    //gtk_widget_override_background_color(window, GTK_STATE_NORMAL, &color);
-    gtk_window_set_title(GTK_WINDOW(window), "Keyboard Ninja");
-    gtk_window_set_default_size(GTK_WINDOW(window), 400, 400);
+        num_rounds++; // Увеличиваем счетчик раундов
 
-    GtkCssProvider *css_provider = gtk_css_provider_new();
+        if (strcmp(word, input) == 0) {
+            printf("Congratulations! You typed correctly\n");
+            num_correct++; // Увеличиваем счетчик правильных ответов
+        }
+        else
+            printf("Sorry, you made a mistake. The correct word is: %s\n", word);
+        
+        printf("\n");
+    }
 
-    // Загружаем стиль для объекта GtkCssProvider
-    gtk_css_provider_load_from_data(css_provider, "window {background-color: #8fd8f2}", -1, NULL);
-
-    // Создаем GtkStyleContext и применяем к нему объект GtkCssProvider
-    GtkStyleContext *context = gtk_widget_get_style_context(window);
-    gtk_style_context_add_provider(context, GTK_STYLE_PROVIDER(css_provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-   
-    gtk_window_present(GTK_WINDOW(window));
-    
-    label_word = gtk_label_new("-");
-    gtk_label_set_selectable(GTK_LABEL(label_word), TRUE);
-
-    word_entry = gtk_entry_new();
-    gtk_widget_set_sensitive(word_entry, FALSE);
-    g_signal_connect(word_entry, "activate", G_CALLBACK(on_input_activate), NULL);
- 
-    accuracy_label = gtk_label_new("Press Start ");
-    gtk_widget_hide(accuracy_label);
-
-    start_button = gtk_button_new_with_label("Start");
-    g_signal_connect(start_button, "clicked", G_CALLBACK(on_start_clicked), NULL);
-
-    button_language = gtk_button_new_with_label("EN");
-    g_signal_connect(button_language, "clicked", G_CALLBACK(on_language_clicked), NULL);
-    gtk_widget_set_sensitive(button_language, FALSE);
-
-    button_reset = gtk_button_new_with_label("Reset");
-    g_signal_connect(button_reset, "clicked", G_CALLBACK(on_reset_clicked), NULL);
-    gtk_widget_set_sensitive(button_reset, FALSE);
-
-    GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
-    gtk_container_add(GTK_CONTAINER(window), vbox);
-    
-    gtk_box_pack_start(GTK_BOX(vbox), label_word, TRUE, TRUE, 0);
-    gtk_box_pack_start(GTK_BOX(vbox), word_entry, FALSE, FALSE, 0);
-    gtk_box_pack_start(GTK_BOX(vbox), accuracy_label, FALSE, FALSE, 0);
-    gtk_box_pack_start(GTK_BOX(vbox), start_button, FALSE, FALSE, 0);
-    gtk_box_pack_start(GTK_BOX(vbox), button_reset, FALSE, FALSE, 0);
-    gtk_box_pack_start(GTK_BOX(vbox), button_language, FALSE, FALSE, 0);
-    gtk_widget_show_all(window);
-    g_signal_connect(window, "destroy", G_CALLBACK(on_window_closed), NULL);
-
-    gtk_main();
+    printf("Thanks for playing!\n");
+    printf("You played %d rounds and got %d answers correct.\n", num_rounds, num_correct);
 
     return 0;
 }
