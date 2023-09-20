@@ -10,7 +10,7 @@ jobs:
     - uses: actions/checkout@v2
     
     - name: Build
-      run: gcc -o main main.c
+      run: make
       
     - name: Language Choice Test
       run: echo -e "1\nhello\nq\n" | timeout 10s ./main
