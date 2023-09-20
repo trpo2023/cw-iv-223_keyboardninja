@@ -6,8 +6,8 @@
 #define WORDS_NUM 12 
 #define MAX_LENGTH 40 
 
-const char WORDS_EN[WORDS_NUM][MAX_LENGTH] = {"to verify", "to plug in", "to debug", "access", "include",
- "keyboard", "language", "network", "process", "programming","mouse","static variable"
+const char WORDS_EN[WORDS_NUM][MAX_LENGTH] = {"verify", "plug", "debug", "access", "include",
+ "keyboard", "language", "network", "process", "programming","mouse","mouse"
 };
 
 const char WORDS_RU[WORDS_NUM][MAX_LENGTH] = {
