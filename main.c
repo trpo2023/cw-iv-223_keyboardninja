@@ -7,7 +7,7 @@
 #define MAX_LENGTH 40 
 
 const char WORDS_EN[WORDS_NUM][MAX_LENGTH] = {"verify", "plug", "debug", "access", "include",
- "keyboard", "language", "network", "process", "programming","mouse","mouse"
+ "keyboard", "language", "network", "process", "programming","mouse","useless"
 };
 
 const char WORDS_RU[WORDS_NUM][MAX_LENGTH] = {
