@@ -2,18 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-
-#define WORDS_NUM 12 
-#define MAX_LENGTH 40 
-
-const char WORDS_EN[WORDS_NUM][MAX_LENGTH] = {"verify", "plug", "debug", "access", "include",
- "keyboard", "language", "network", "process", "programming","mouse","mouse"
-};
-
-const char WORDS_RU[WORDS_NUM][MAX_LENGTH] = {
-"переменная", "алгоритм", "разработчик", "отказоустойчивость", "компьютер", "реализация", 
-"функция", "библиотека", "веб-страница", "таблица","оператор","обработка"
-};
+#include "lib/word_lib.h"
 
 int main() {
     srand(time(NULL));
