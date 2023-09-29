@@ -1,9 +1,8 @@
 #include "ctest.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <string.h>
-#include "lib/word_lib.h"
+#include "../lib/word_lib.h"
 
 CTEST(input_test, correct_input) {
     char input[5] = "word";
@@ -46,11 +45,11 @@ CTEST(language_choice_test, russian_language) {
         WORDS = WORDS_RU;
         words_num = WORDS_NUM;
     }
-    int i = 0;
+
     const char (*expected_WORDS)[MAX_LENGTH] = WORDS_RU;
     int expected_words_num = WORDS_NUM;
     ASSERT_EQUAL(expected_words_num, words_num);
-    for (i = 0; i < expected_words_num; ++i) {
+    for (int i = 0; i < expected_words_num; ++i) {
         ASSERT_STR(expected_WORDS[i], WORDS[i]);
     }
 }
