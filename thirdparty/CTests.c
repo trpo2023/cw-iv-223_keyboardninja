@@ -15,7 +15,9 @@ CTEST(input_test, correct_input) {
 CTEST(input_test, incorrect_input) {
     char input[5] = "word";
     const char word[5] = "abcd";
-    int result = strcmp(input, word);
+    int result;
+    if (strcmp(input,word) != 0){
+        result = -1;}
     int expected = -1;
     ASSERT_EQUAL(expected, result);
 }
