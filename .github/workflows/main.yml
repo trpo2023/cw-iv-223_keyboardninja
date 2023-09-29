@@ -19,3 +19,6 @@ jobs:
     - name: Results Test
       run: echo -e "1\nhello\nworld\nq\n" | timeout 10s ./main > output.txt && cat output.txt | grep 'Точность'
       # Проверяем, что программа корректно выводит результаты игры
+    
+    - name: Build
+      run: make test
