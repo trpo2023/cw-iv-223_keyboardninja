@@ -22,3 +22,6 @@ jobs:
     
     - name: Build
       run: make test
+
+    - name: Run Build
+      run: CTests
