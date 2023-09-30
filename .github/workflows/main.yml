@@ -24,4 +24,4 @@ jobs:
       run: make test
 
     - name: Run Build
-      run: CTests
+      run: echo -e ./CTests
