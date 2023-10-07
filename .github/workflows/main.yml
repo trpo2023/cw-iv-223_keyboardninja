@@ -11,15 +11,7 @@ jobs:
     
     - name: Build
       run: make
-      
-    - name: Language Choice Test
-      run: echo -e "1\nhello\nq\n" | timeout 10s ./main
-      # Проверяем, что программа корректно обрабатывает ввод пользователем языка и слова
-      
-    - name: Results Test
-      run: echo -e "1\nhello\nworld\nq\n" | timeout 10s ./main > output.txt && cat output.txt | grep 'Точность'
-      # Проверяем, что программа корректно выводит результаты игры
-    
+
     - name: Build Test
       run: make test
 

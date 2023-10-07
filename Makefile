@@ -16,7 +16,7 @@ $(TARGET): main.c $(LIB_MAIN)/$(LIB_LIB)/func.h $(LIB_MAIN)/$(LIB_LIB)/word_lib.
 
 test: $(TEST_NAME)
 
-$(TEST_NAME): $(LIB_TEST)/CTests.c $(LIB_TEST)/main.c $(LIB_LIB)/word_lib.c
+$(TEST_NAME): $(LIB_TEST)/CTests.c $(LIB_TEST)/cmain.c $(LIB_MAIN)/$(LIB_LIB)/word_lib.c
 	$(CC) $(CFLAGS) $(LIB_TEST)/CTests.c $(LIB_TEST)/cmain.c $(LIB_MAIN)/$(LIB_LIB)/word_lib.c -o $(TEST_NAME)
 
 clean:
