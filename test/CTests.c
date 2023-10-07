@@ -2,23 +2,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "../lib/func.h"
 #include "../lib/word_lib.h"
 
 CTEST(input_test, correct_input) {
     char input[5] = "word";
     const char word[5] = "word";
-    int result = strcmp(input, word);
-    int expected = 0;
+    int result = checkWord(word, input);
+    int expected = 1;
     ASSERT_EQUAL(expected, result);
 }
 
 CTEST(input_test, incorrect_input) {
     char input[5] = "word";
     const char word[5] = "abcd";
-    int result;
-    if (strcmp(input,word) != 0){
-        result = -1;}
-    int expected = -1;
+    int result = checkWord(word, input);
+    int expected = 0;
     ASSERT_EQUAL(expected, result);
 }
 
@@ -56,17 +55,25 @@ CTEST(language_choice_test, russian_language) {
     }
 }
 
-CTEST(accuracy_test, calculate_accuracy) {
-    int num_correct = 5;
-    int num_words = 10;
-    double expected_accuracy = 50.0;
-    double accuracy = (double)num_correct / num_words * 100;
+CTEST(accuracy_test, calculate_accuracy_zero_words) {
+    int num_correct = 0;
+    int num_words = 0;
+    double expected_accuracy = 0.0;
+    double accuracy = calculateAccuracy(num_correct, num_words);
     ASSERT_DBL_NEAR(expected_accuracy, accuracy);
 }
 
-CTEST(input_test, exit_input) {
+CTEST(accuracy_test, calculate_accuracy_all_words_correct) {
+    int num_correct = 5;
+    int num_words = 5;
+    double expected_accuracy = 100.0;
+    double accuracy = calculateAccuracy(num_correct, num_words);
+    ASSERT_DBL_NEAR(expected_accuracy, accuracy);
+}
+
+CTEST(input_test, correct_exit_input) {
     char input[2] = "q";
-    int result = strcmp(input, "q");
-    int expected = 0;
+    int result = checkWord("q", input);
+    int expected = 1;
     ASSERT_EQUAL(expected, result);
 }
