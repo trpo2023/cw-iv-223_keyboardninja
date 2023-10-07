@@ -22,4 +22,5 @@ double calculateAccuracy(int num_correct, int num_words) {
     } else {
         return 0;
     }
+    
 }
