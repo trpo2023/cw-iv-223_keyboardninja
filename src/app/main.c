@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-#include "lib/func.h"
-#include "lib/word_lib.h"
+#include "../lib/func.h"
+#include "../lib/word_lib.h"
 
 int main() {
     srand(time(NULL));

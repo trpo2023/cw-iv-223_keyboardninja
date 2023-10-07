@@ -1,4 +1,4 @@
-#include <lib/word_lib.h>
+#include "word_lib.h"
 
 const char WORDS_EN[WORDS_NUM][MAX_LENGTH] = {"apple", "banana", "chocolate", "dog", "cat",
  "elephant", "fish", "guitar", "helicopter", "igloo", "jazz", "kite", "lemon", "moon", "nest",
@@ -13,8 +13,7 @@ const char WORDS_EN[WORDS_NUM][MAX_LENGTH] = {"apple", "banana", "chocolate", "d
 "waterfall", "yeti", "ballet", "carousel", "dandelion", "hyena", "iguana", "jigsaw", "kangaroo", "llama", 
 "meadow", "newspaper", "ostrich", "peacock", "rhinoceros", "starfish", "telescope", "vortex", "walrus", 
 "yawn", "avocado", "beetle", "caterpillar", "eucalyptus", "flute", "hummingbird", "jellybean", "lemur", 
-"nachos", "panda", "rabbit", "starfruit", "tornado", "whale", "yogurt"
-
+"nachos", "panda", "rabbit", "starfruit", "tornado", "whale", "yogurt","kek", "lol", "mother", "father", "brother", "sister"
 };
 
 const char WORDS_RU[WORDS_NUM][MAX_LENGTH] = {"яблоко", "банан", "шоколад", "собака", 

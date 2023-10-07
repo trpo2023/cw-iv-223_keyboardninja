@@ -1,9 +1,9 @@
-#include "ctest.h"
+#include "../thirdparty/ctest.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../lib/func.h"
-#include "../lib/word_lib.h"
+#include "../src/lib/func.h"
+#include "../src/lib/word_lib.h"
 
 CTEST(input_test, correct_input) {
     char input[5] = "word";
