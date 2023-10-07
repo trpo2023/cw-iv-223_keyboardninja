@@ -1,0 +1,24 @@
+name: Keyboard Ninja
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Check codestyle
+      run: |
+        git ls-files | grep -E "^(src/|test/).*\.(c|h)$" | xargs clang-format -i --verbose
+        git diff --exit-code
+    
+    - name: Build
+      run: make
+
+    - name: Build Test
+      run: make test
+
+    - name: Run Test
+      run: ./CTests
