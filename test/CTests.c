@@ -44,7 +44,8 @@ CTEST(language_choice_test, russian_language) {
     int words_num;
     if (language_choice == 2) { 
         WORDS = WORDS_RU;
-        words_num = WORDS_NUM;}
+        words_num = WORDS_NUM;
+    }
 
     const char (*expected_WORDS)[MAX_LENGTH] = WORDS_RU;
     int expected_words_num = WORDS_NUM;

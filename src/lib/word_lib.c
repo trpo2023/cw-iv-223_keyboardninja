@@ -16,7 +16,6 @@ const char WORDS_EN[WORDS_NUM][MAX_LENGTH] = {"apple", "banana", "chocolate", "d
 "nachos", "panda", "rabbit", "starfruit", "tornado", "whale", "yogurt","kek", "lol", "mother", "father", "brother", "sister"
 };
 
-
 const char WORDS_RU[WORDS_NUM][MAX_LENGTH] = {"яблоко", "банан", "шоколад", "собака", 
 "кошка", "слон", "рыба", "гитара", "вертолет", "иглу", "джаз", "воздушный змей", "лимон", 
 "луна", "гнездо", "апельсин", "карандаш", "королева", "радуга", "солнце", "дерево", "зонтик", 

@@ -4,7 +4,6 @@
 #define WORDS_NUM 130
 #define MAX_LENGTH 40
 
-
 extern const char WORDS_EN[WORDS_NUM][MAX_LENGTH];
 extern const char WORDS_RU[WORDS_NUM][MAX_LENGTH];
 
